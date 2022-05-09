@@ -836,7 +836,8 @@ void screen1()
         }
       tft.print(tempF);
       tft.setFont();
-      tft.setCursor(87,35);
+      tft.setCursor(80,35);
+      tft.print(utf8rus("\0xb0"));
       tft.print("C");
       
       tft.setTextColor(ST7735_WHITE);
@@ -927,7 +928,7 @@ void screen1()
       tft.setTextColor(colors[day2]);
     tft.setCursor(65,25);
     tft.print(daysOfTheWeek[day2]);
-    tft.setCursor(97,38);
+    tft.setCursor(92,38);
     tft.print("C");
     tft.setCursor(105,44);
     tft.print(humidity2);
@@ -941,7 +942,7 @@ void screen1()
     tft.setTextColor(colors[day3]);
     tft.setCursor(65,65);
     tft.print(daysOfTheWeek[day3]);
-    tft.setCursor(97,78);
+    tft.setCursor(92,78);
     tft.print(utf8rus("C"));
     tft.setCursor(105,84);
     tft.print(humidity3);
@@ -955,7 +956,7 @@ void screen1()
     tft.setTextColor(colors[day4]);
     tft.setCursor(65,105);
     tft.print(daysOfTheWeek[day4]);
-    tft.setCursor(97,118);
+    tft.setCursor(92,118);
     tft.print(utf8rus("C"));
     tft.setCursor(105,124);
     tft.print(humidity4);
@@ -967,34 +968,34 @@ void screen1()
     tft.print(tempMax4);
       }
 
-      void displayweatherbitmap_screen2()
+        void displayweatherbitmap_screen2()
       {
-        if(main.equals(utf8rus("Облачно")))
+        if(main.equals("Clouds"))
         {
           col=0xFFE0;
           tft.drawBitmap(8, 25, clouds, 51, 38,0xFFE0);
           }
-          else if(main.equals(utf8rus("Дождь")))
+          else if(main.equals("Rain"))
         {
           col=0x07FF;
           tft.drawBitmap(8, 25, rain, 51, 40,0x07FF);
           }
-          else if(main.equals(utf8rus("Гроза")))
+          else if(main.equals("Thunderstorm"))
         {
           col=0x03DF;
           tft.drawBitmap(8, 25, thunder, 51, 40,0x03DF);
           }
-          else if(main.equals(utf8rus("Ясно")))
+          else if(main.equals("Clear"))
         {
           col=0xFFE0;
           tft.drawBitmap(8, 25, clearS1, 37, 40,0xFFE0);
           }
-          else if(main.equals(utf8rus("Морось")))
+          else if(main.equals("Drizzle"))
         {
           col=0x07FF;
           tft.drawBitmap(8, 25, drizzle, 51, 40,0x07FF);
           }
-          else if(main.equals(utf8rus("Снег")))
+          else if(main.equals("Snow"))
         {
           col=ST7735_WHITE;
           tft.drawBitmap(8, 25, snow, 51, 40,ST7735_WHITE);
