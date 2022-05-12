@@ -24,7 +24,6 @@ OpenWeatherMapCurrent client;
 #define TFT_DC    D2     // TFT DC  pin is connected to NodeMCU pin D4 (GPIO4)
 
 Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
-
 //Начало
 String utf8rus(String source)
 {
@@ -74,7 +73,7 @@ const char* WIFI_SSID     = "ANMD";
 const char* WIFI_PASSWORD = "s080270P150572";
 
 const long utcOffsetInSeconds = 10800;
-char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+char daysOfTheWeek[7][24] = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 uint16_t colors[7]={0xF800, 0xFB20, 0xFFE0, 0x87E0, 0x04E0, 0x07FF, 0x03DF};
@@ -747,7 +746,7 @@ void getCurrentData()
 //Экраны
 void screen1()
 {
-      tft.setFont();
+      //tft.setFont();
       tft.setTextColor(ST7735_WHITE);
       tft.setCursor(10,7);
       tft.print(OPEN_WEATHER_MAP_LOCATION);
@@ -765,10 +764,10 @@ void screen1()
       tft.setCursor(60,146);
       tft.print(date);
       tft.fillRect(3, 22 , 123, 116, ST7735_BLACK);
-      tft.setFont(&FreeSansBold18pt7b);
+      //tft.setFont(&FreeSansBold18pt7b);
       //tft.setTextColor(ST7735_WHITE);
-      tft.setTextSize(1);
-      tft.setCursor(22,60);
+      tft.setTextSize(2);
+      tft.setCursor(35,60);
       tft.setTextColor(colors[2]);
       if(getH<10)
       tft.print(0);
@@ -776,22 +775,23 @@ void screen1()
       tft.print(":");
       if(getM<10)
       tft.print(0);
-      tft.print(getM);
-      tft.setFont(&FreeSans9pt7b);
+      tft.println(getM);
+      //tft.setFont(&FreeSans9pt7b);
       int daylen=0;
       daylen=dayName.length();
-      if(daylen==6)
+      /*if(daylen==6)
       tft.setCursor(35,90);
       else if (daylen==7)
-      tft.setCursor(27,90);
+      tft.setCursor(30,90);
       else if (daylen==8)
       tft.setCursor(21,90);
-      else if (daylen==9)
-      tft.setCursor(15,90);
-      tft.setTextColor(colors[getD]);
-      tft.print(dayName);
+      else if (daylen==9)*/
+      tft.setCursor(30,90);
+      tft.setTextColor(colors[getD]);      
+      tft.print(utf8rus(dayName));
       tft.setTextColor(ST7735_WHITE);
       tft.setCursor(19,120);
+      tft.setTextSize(1);
       tft.print(date);
   }
 
@@ -800,7 +800,7 @@ void screen1()
     tft.fillRect(3, 22 , 123, 116, ST7735_BLACK);
     //tft.drawBitmap(8, 25, clouds, 51, 38,ST7735_WHITE);
     displayweatherbitmap_screen2();
-  tft.setFont(&FreeSansBold9pt7b);
+  //tft.setFont(&FreeSansBold9pt7b);
   tft.setTextColor(ST7735_WHITE);
   //tft.setTextColor(ST7735_WHITE);
       tft.setTextSize(1);
@@ -834,9 +834,11 @@ void screen1()
        {
         tft.setTextColor(0xF800);
         }
+      tft.setTextSize(2);
       tft.print(tempF);
-      tft.setFont();
+      //tft.setFont();
       tft.setCursor(80,35);
+      tft.setTextSize(1);
       tft.print(utf8rus("\0xb0"));
       tft.print("C");
       
@@ -861,11 +863,13 @@ void screen1()
       {
         tft.setTextColor(0xF800);
         }
-      tft.setFont(&FreeSansBold9pt7b);
+      //tft.setFont(&FreeSansBold9pt7b);
+      tft.setTextSize(2);
       tft.setCursor(94,50);
       tft.print(humidity);
-      tft.setFont();
+      //tft.setFont();
       tft.setCursor(118,35);
+      tft.setTextSize(1);
       tft.print("%");
       tft.setCursor(4,85);
       tft.setTextColor(col);
@@ -924,44 +928,44 @@ void screen1()
       tft.drawBitmap(8, 28, weather1, 39, 24,colors[day2]);
     tft.drawBitmap(8, 68, weather1, 39, 24,colors[day3]);
     tft.drawBitmap(8, 108, weather1, 39, 24,colors[day4]);
-      tft.setFont();
+      //tft.setFont();
       tft.setTextColor(colors[day2]);
     tft.setCursor(65,25);
-    tft.print(daysOfTheWeek[day2]);
+    tft.print(utf8rus(daysOfTheWeek[day2]));
     tft.setCursor(92,38);
     tft.print("C");
     tft.setCursor(105,44);
     tft.print(humidity2);
     tft.print("%");
-    tft.setFont(&FreeSansBold9pt7b);
+    //tft.setFont(&FreeSansBold9pt7b);
     tft.setCursor(50,50);
     tft.print(tempMin2);
     tft.print("/");
     tft.print(tempMax2);
-    tft.setFont();
+    //tft.setFont();
     tft.setTextColor(colors[day3]);
     tft.setCursor(65,65);
-    tft.print(daysOfTheWeek[day3]);
+    tft.print(utf8rus(daysOfTheWeek[day3]));
     tft.setCursor(92,78);
     tft.print(utf8rus("C"));
     tft.setCursor(105,84);
     tft.print(humidity3);
     tft.print("%");
-    tft.setFont(&FreeSansBold9pt7b);
+    //tft.setFont(&FreeSansBold9pt7b);
     tft.setCursor(50,90);
     tft.print(tempMin3);
     tft.print("/");
     tft.print(tempMax3);
-    tft.setFont();
+    //tft.setFont();
     tft.setTextColor(colors[day4]);
     tft.setCursor(65,105);
-    tft.print(daysOfTheWeek[day4]);
+    tft.print(utf8rus(daysOfTheWeek[day4]));
     tft.setCursor(92,118);
     tft.print(utf8rus("C"));
     tft.setCursor(105,124);
     tft.print(humidity4);
     tft.print("%");
-    tft.setFont(&FreeSansBold9pt7b);
+    //tft.setFont(&FreeSansBold9pt7b);
     tft.setCursor(50,130);
     tft.print(tempMin4);
     tft.print("/");
